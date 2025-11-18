@@ -13,7 +13,19 @@
 
 ---
 
-### 2. Run Extraction Script
+### 2. List Available COM Libraries
+
+**To find the correct names for extraction, run:**
+
+```bash
+python list_com_progids.py
+```
+- This prints available ProgIDs and CLSIDs ("ProgID" column is what you enter for extraction)
+- Use the ProgID exactly as printed for `extract_com.py` (e.g., `Visio.Application`, `Excel.Application`, etc.)
+
+---
+
+### 3. Run Extraction Script
 
 #### Step 1: Extract Scripting.FileSystemObject (baseline test)
 ```bash
@@ -50,7 +62,7 @@ python extract_com.py "Visio.Application" "examples/visio-api.json"
 
 ---
 
-### 3. Troubleshooting
+### 4. Troubleshooting
 
 - **pywin32 errors:**  
   - Reinstall: `pip install --upgrade pywin32`
@@ -62,7 +74,7 @@ python extract_com.py "Visio.Application" "examples/visio-api.json"
 
 ---
 
-### 4. Commit Example Outputs
+### 5. Commit Example Outputs
 
 - Add and commit working JSON examples:
 ```bash
@@ -73,7 +85,7 @@ git commit -m "feat(phase1): add extracted JSON examples\n\nTask: 1.4 from PROJE
 
 ---
 
-### 5. Validate Phase 1 Deliverables
+### 6. Validate Phase 1 Deliverables
 
 - [ ] `extract_com.py` exists and runs without syntax errors
 - [ ] At least one JSON file in `examples/` contains valid data
@@ -83,7 +95,7 @@ git commit -m "feat(phase1): add extracted JSON examples\n\nTask: 1.4 from PROJE
 
 ---
 
-### 6. Report Results & Move to Phase 2
+### 7. Report Results & Move to Phase 2
 
 - Document the following (in an issue, commit message, or separate file):  
   - Which COM libraries you successfully extracted
@@ -94,7 +106,7 @@ git commit -m "feat(phase1): add extracted JSON examples\n\nTask: 1.4 from PROJE
 
 ---
 
-### 7. Ready? Proceed to VSCode Extension (Phase 2)
+### 8. Ready? Proceed to VSCode Extension (Phase 2)
 
 - When all above boxes are ticked, move to the extension work as described in `PROJECT_PLAN_MVP.md` Phase 2.
 
