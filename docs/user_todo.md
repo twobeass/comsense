@@ -25,7 +25,7 @@ python list_com_progids.py
 
 ---
 
-### 3. Run Extraction Script
+### 3. Extract a COM Library
 
 #### Step 1: Extract Scripting.FileSystemObject (baseline test)
 ```bash
@@ -62,7 +62,49 @@ python extract_com.py "Visio.Application" "examples/visio-api.json"
 
 ---
 
-### 4. Troubleshooting
+### 4. Create/Run the VSCode Extension (Phase 2)
+
+**Phase 2 can be built/demoed using mock data (no extraction required):**
+
+#### Step 1: Install Node.js (v18+) and npm
+
+```bash
+node --version
+npm --version
+```
+
+#### Step 2: Initialize and Build the Extension
+
+```bash
+cd vscode-extension
+npm install
+npm run compile
+```
+
+#### Step 3: Launch in VSCode Development Mode
+
+- Open the `vscode-extension` folder in VSCode.
+- Press `F5` or select "Run Extension". (Opens Extension Development Host.)
+
+#### Step 4: Test Completion Using Mock API
+
+- In the development environment, create a new file with `.vba` or `.bas` extension.
+- Type:
+
+  ```vba
+  Dim x As DemoClass
+  x.
+  ```
+- You should see completions for `SomeProp`, `DoThing`, etc., from the mock API (`mock-api.json`).
+- Modifying `vscode-extension/data/apis/mock-api.json` replaces the autocompletion set instantly.
+
+#### Step 5: Swap in Real Data
+
+- As soon as real extracted JSONs (from `extract_com.py`) are available, copy them into `vscode-extension/data/apis/` and reload the extension. Completions will then match real COM APIs.
+
+---
+
+### 5. Troubleshooting
 
 - **pywin32 errors:**  
   - Reinstall: `pip install --upgrade pywin32`
@@ -71,10 +113,13 @@ python extract_com.py "Visio.Application" "examples/visio-api.json"
   - Try fallback: `"Scripting.FileSystemObject"` always works on Windows
 - **No classes/properties/methods:**  
   - The COM library might not expose type info; try another ProgID or check the script logic
+- **VSCode extension issues:**
+  - Make sure TypeScript sources are compiled (`npm run compile`)
+  - Ensure the test file extension is `.vba`, `.bas`, `.cls`, or `.frm`
 
 ---
 
-### 5. Commit Example Outputs
+### 6. Commit Example Outputs
 
 - Add and commit working JSON examples:
 ```bash
@@ -85,7 +130,7 @@ git commit -m "feat(phase1): add extracted JSON examples\n\nTask: 1.4 from PROJE
 
 ---
 
-### 6. Validate Phase 1 Deliverables
+### 7. Validate Phase 1 Deliverables
 
 - [ ] `extract_com.py` exists and runs without syntax errors
 - [ ] At least one JSON file in `examples/` contains valid data
@@ -95,20 +140,14 @@ git commit -m "feat(phase1): add extracted JSON examples\n\nTask: 1.4 from PROJE
 
 ---
 
-### 7. Report Results & Move to Phase 2
+### 8. Report Results & Move to Further Phases
 
 - Document the following (in an issue, commit message, or separate file):  
   - Which COM libraries you successfully extracted
   - Encountered issues or notes
   - File sizes of the generated JSONs
   - Are all MVP success criteria for Phase 1 met?
-- **Do not begin Phase 2 until above is confirmed!**
-
----
-
-### 8. Ready? Proceed to VSCode Extension (Phase 2)
-
-- When all above boxes are ticked, move to the extension work as described in `PROJECT_PLAN_MVP.md` Phase 2.
+- **Do not begin Phase 2 (production extension) until above is confirmed!** (But you can demo Phase 2 with the mock now.)
 
 ---
 
@@ -116,4 +155,4 @@ git commit -m "feat(phase1): add extracted JSON examples\n\nTask: 1.4 from PROJE
 
 ---
 
-This guide ensures MVP Phase 1 is proven on your system before continuing.
+This guide ensures both extraction and the editor extension flow are validated with or without real data.
