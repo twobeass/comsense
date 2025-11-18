@@ -1,0 +1,22 @@
+{
+  "metadata": {
+    "prog_id": "Demo.Application",
+    "version": "0.1.0-mvp",
+    "generator": "comsense-mvp"
+  },
+  "classes": {
+    "DemoClass": {
+      "properties": {
+        "SomeProp": {
+          "type": "string",
+          "readonly": true
+        }
+      },
+      "methods": {
+        "DoThing": {
+          "parameters": []
+        }
+      }
+    }
+  }
+}
