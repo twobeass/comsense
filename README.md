@@ -2,8 +2,7 @@
 
 > Automated extraction of Windows COM type libraries to JSON for code completion and automation tooling.
 
-**Status:** MVP Phase 1 complete — script-based extraction [docs/user_todo.md](https://github.com/twobeass/comsense/blob/main/docs/user_todo.md)  
-**License:** MIT
+**Status:** Phase 2 completed — VSCode extension works with mock API; extraction script production-ready; end-to-end MVP flow demoable
 
 ---
 
@@ -13,123 +12,56 @@
 
 - Extracts class, method, property, and enum information from COM libraries.
 - JSON outputs can be used for editor IntelliSense, reference docs, or community sharing.
-- CLI tool provides commands for interactive discovery, extraction, and validation.
-
-Planned future extensions include a VSCode extension for immediate code completion and a curated repo of shared extractions.
-
----
-
-## Key Features (Final Product Vision)
-
-- **COM Library Enumeration:** Discover all ProgIDs on your system (e.g. `Visio.Application`, `Excel.Application`, etc.).
-- **Intelligent Extraction:** Output a normalized API snapshot (classes, methods, properties, enums) as JSON.
-- **Schema Validation:** Ensure all extracted JSONs meet a stable, evolving schema.
-- **CLI UX:** `comsense list`, `comsense info`, `comsense extract`, `comsense validate`.
-- **Integration Ready:** Output designed for editor plugins (e.g., VSCode), documentation systems, or code generators.
-- **Community Sharing:** Encourage sharing/exchange of extracted JSONs for broader COM/VBA developer benefit.
-- **Documented, Test-Covered:** Architecture, error handling and contribution docs scaffolded for future growth.
+- CLI tool provides commands for interactive discovery, extraction, and validation (planned post-MVP).
+- MVP includes automated completion for VSCode via JSON, with the ability to demo using mock or production data.
 
 ---
 
-## How It Works
+## Current Status
 
-1. **Scan:** Enumerate all registered COM type libraries.
-2. **Select & Extract:** Choose a ProgID to extract (e.g., `Visio.Application`), and output its type info to schema-compliant JSON.
-3. **Validate:** Use the built-in validator to certify output compatibility for downstream tools.
-4. **Leverage:** Use JSON in editors, scripting helpers, or contribute findings to a community repo.
+- ✅ **Phase 1 Complete**: Extraction script (`extract_com.py`) extracts a chosen ProgID to correct JSON format with properties/methods; utility script lists available COM ProgIDs; see [docs/user_todo.md](docs/user_todo.md)
+- ✅ **Phase 2 Complete**: VSCode extension loads any extracted (or mock) API JSON and provides working completions for `.vba`, `.bas` etc. out of the box — ready for demo, testing, and integration
+- 🕓 Extracting real COM libraries not required to test extension: simply edit/copy mock files
+- 🕓 Further CLI, validation, and JSON schema planned per [PROJECT_PLAN.md](PROJECT_PLAN.md)
 
 ---
 
-## Current Status and MVP Workflow
+## Quick Start for Both Extraction and Extension
 
-> The following workflow and code represent the initial “MVP” phase. This validates extraction on a per-script basis before building the full CLI, schema, and package.
+See [docs/user_todo.md](docs/user_todo.md) for step-by-step setup for both script-based extraction and VSCode IntelliSense extension prototyping (with or without real API data).
 
-### MVP Extraction Guide (Phase 1)
-
-**Requirements:**
-
-- Windows OS
-- Python 3.10+
-- pywin32 (`pip install pywin32`)
-
-**Basic Usage:**
-
-Extract a COM library’s API surface to JSON:
+### Extension demo on any platform
 
 ```sh
-python extract_com.py "Scripting.FileSystemObject" "examples/scripting-fso.json"
-python extract_com.py "Visio.Application" "examples/visio-api.json"  # if Visio is installed
+cd vscode-extension
+npm install
+npm run compile
+# Launch extension dev mode in VSCode (see user_todo.md)
 ```
 
-**How to Continue:**
+### Extraction (requires Windows)
 
-- See [docs/user_todo.md](https://github.com/twobeass/comsense/blob/main/docs/user_todo.md) for step-by-step setup, extraction, and validation.
-- Output JSON is validated by manually confirming structure and checking properties/methods for each class.
-- Once MVP extraction is working, move on to Phase 2 (VSCode extension) and continue development per [PROJECT_PLAN_MVP.md](https://github.com/twobeass/comsense/blob/main/PROJECT_PLAN_MVP.md).
-
----
-
-## Target Architecture (Final)
-
-```
-comsense/
-├── comsense/                # Python package and CLI
-│   ├── registry.py          # Registry scanner
-│   ├── extractor.py         # TypeLib extractor
-│   ├── serializer.py        # JSON output
-│   ├── validator.py         # Schema validation
-│   └── cli.py               # Command-line interface
-├── schemas/                 # JSON schema for outputs
-├── tests/
-├── examples/                # Sample extracted JSONs
-├── docs/                    # All project documentation
-│   └── user_todo.md
-├── PROJECT_PLAN.md
-├── PROJECT_PLAN_MVP.md
-├── README.md
-└── LICENSE
+```sh
+python list_com_progids.py     # See ProgIDs available for extraction
+python extract_com.py "<ProgID>" "examples/your-api.json"
+# Copy resulting .json to vscode-extension/data/apis/ for immediate testing in the extension
 ```
 
 ---
 
-## Planned CLI (Not Yet Implemented in MVP)
+## Architecture and Roadmap
 
-- `comsense list` — List discoverable COM libraries (ProgIDs)
-- `comsense info <prog_id>` — Show details for a COM library
-- `comsense extract <prog_id>` — Extract to schema-compliant JSON
-- `comsense validate <file>` — Validate a JSON against schema
+See [PROJECT_PLAN.md](PROJECT_PLAN.md) for full feature set, future plans, and upcoming CLI/validation features. The MVP flow is now demoable end-to-end:
 
----
+- **Discover COM APIs**: Script lists ProgIDs (Windows)
+- **Extract**: Script extracts to JSON
+- **Demo/Integrate**: VSCode extension consumes any JSON and provides completions for class members, properties, and methods
+- **Swap in real or mock data instantly**
 
-## Use Cases
-
-- **Editor IntelliSense:** VSCode extension parses output for live VBA/COM code completion.
-- **API Documentation:** Generate API documentation for automation libraries.
-- **Community Repo:** Pool and share extractions for hard-to-inspect libraries.
-
----
-
-## Requirements
-
-- Windows 10+ (due to registry and COM)
-- Python 3.10 or newer
-- pywin32 library
-
----
-
-## Contributing and Documentation
-
-- See [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) for contribution guidelines.
-- For in-depth plans, see [PROJECT_PLAN.md](PROJECT_PLAN.md) and [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
-- All next steps and ongoing tasks tracked in [docs/CHECKLIST.md](docs/CHECKLIST.md).
+You can contribute or test the end-to-end experience with or without real extraction output.
 
 ---
 
 ## License
 
 MIT
-
----
-
-**For setup and current step-by-step, start with [docs/user_todo.md](https://github.com/twobeass/comsense/blob/main/docs/user_todo.md).**  
-Check [PROJECT_PLAN.md](https://github.com/twobeass/comsense/blob/main/PROJECT_PLAN.md) for detailed project milestones.
