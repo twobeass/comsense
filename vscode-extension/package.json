@@ -1,0 +1,28 @@
+{
+  "name": "comsense-vscode-mvp",
+  "displayName": "COMSense VBA IntelliSense (MVP)",
+  "description": "Minimal VSCode extension for VBA COM API completions using exported JSON schema.",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": ["Programming Languages"],
+  "activationEvents": ["onLanguage:vb"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [{
+      "id": "vb",
+      "aliases": ["Visual Basic", "VBA"],
+      "extensions": [".vba", ".bas", ".cls", ".frm"]
+    }]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.0.0"
+  }
+}
