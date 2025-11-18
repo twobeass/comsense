@@ -17,9 +17,9 @@
 - **[x]** **Agent**: Create extraction script skeleton (`extract_com.py`)
 - **[x]** **Agent**: Implement COM library loading and type/class discovery
 - **[x]** **Agent**: Extract properties and methods for each class (basic structure)
-- **[x]** **User**: Test extraction script on Windows (Python 3.10+, pywin32)
+- **[ ]** **User**: Test extraction script on Windows (Python 3.10+, pywin32)
 - **[x]** **Agent**: Commit extracted JSON (mock and/or real) to `examples/`
-- **[x]** **User**: Validate JSON structure, check for properties/methods, basic data quality
+- **[ ]** **User**: Validate JSON structure, check for properties/methods, basic data quality
 - **[x]** **Agent**: Add utility to list all available ProgIDs (`list_com_progids.py`)
 
 ## Phase 2: VSCode Extension (MVP)
@@ -29,8 +29,8 @@
 - **[x]** **Agent**: Implement API loader (`apiLoader.ts`)
 - **[x]** **Agent**: Implement completion provider (class/method/property)
 - **[x]** **Agent**: Implement extension entrypoint
-- **[x]** **User**: Test extension with mock-api.json for completions in VSCode
-- **[x]** **User**: Validate completion behavior, test swapping in real extracted JSON
+- **[ ]** **User**: Test extension with mock-api.json for completions in VSCode
+- **[ ]** **User**: Validate completion behavior, test swapping in real extracted JSON
 
 ## Phase 3: Validation & Community Feedback (MVP Finalization)
 
